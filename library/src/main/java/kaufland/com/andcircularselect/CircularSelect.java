@@ -12,16 +12,18 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import kaufland.com.andcircularselect.data.ColorDataView;
 import kaufland.com.andcircularselect.data.DataView;
+import kaufland.com.andcircularselect.indicator.DefaultIndicatorView;
+import kaufland.com.andcircularselect.indicator.IndicatorView;
 import kaufland.com.andcircularselect.renderer.CircularRenderer;
 import kaufland.com.andcircularselect.selector.SelectorView;
 import kaufland.com.andcircularselect.utils.CircleCalculationUtil;
@@ -37,6 +39,8 @@ public class CircularSelect extends FrameLayout {
     private List<DataView> mData = new ArrayList<>();
 
     private SelectorView mSelectorView;
+
+    private IndicatorView mIndicatorView;
 
     public CircularSelect(@NonNull Context context) {
         super(context);
@@ -62,7 +66,6 @@ public class CircularSelect extends FrameLayout {
             CircularRenderer renderer = new CircularRenderer();
             renderer.drawPieces(canvas, mFuldrawingRectF, mData);
             renderer.drawControl(canvas, mFuldrawingRectF, getResources().getDimension(R.dimen.default_outer_circle), Color.WHITE);
-            renderer.drawIndicator(canvas, mFuldrawingRectF, getResources().getDimension(R.dimen.default_indicator_radius));
         }
 
 
@@ -80,16 +83,35 @@ public class CircularSelect extends FrameLayout {
                     PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
                     float radius = mFuldrawingRectF.height() / 2;
 
-                    mSelectorView.setIndicatorPoint(CircleCalculationUtil.moveTouchedPointToCircleOutline(clicked, center, radius));
+                    PointF outerPoint = CircleCalculationUtil.moveTouchedPointToCircleOutline(clicked, center, radius);
+                    mSelectorView.setIndicatorPoint(outerPoint);
+
+                    if(mIndicatorView != null){
+                        mIndicatorView.update(mData.get((int)(CircleCalculationUtil.angleBetween2Lines(new PointF(mFuldrawingRectF.width(), mFuldrawingRectF.centerY()), center, clicked, center) / (360f / mData.size()))));
+                    }
+
+
+//                    mIndicatorView.updateIndicator(((ColorDataView)mData.get(0)).getColor(), "");
 
                     return true;
                 }
             });
         }
+
         super.dispatchDraw(canvas);
 
     }
 
+    public void setIndicatorView(IndicatorView indicatorView) {
+        mIndicatorView = indicatorView;
+
+        addView(mIndicatorView.getView());
+        int size = (int) getResources().getDimension(R.dimen.default_indicator_radius) * 2;
+        mIndicatorView.getView().setLayoutParams(new FrameLayout.LayoutParams(size, size));
+        mIndicatorView.getView().setX(mFuldrawingRectF.centerX() - size / 2);
+        mIndicatorView.getView().setY(mFuldrawingRectF.centerY() - size / 2);
+        mIndicatorView.update(mData.get(0));
+    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {

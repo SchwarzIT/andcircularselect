@@ -31,7 +31,7 @@ public class CircularRenderer {
 
     }
 
-    private float calcRadius(List<DataView> data) {
+    public float calcRadius(List<DataView> data) {
 
         return 360f / data.size();
 
@@ -44,16 +44,6 @@ public class CircularRenderer {
         paint.setAntiAlias(true);
 
         canvas.drawArc(new RectF(fuldrawingRectF.left + outerCircleWith, fuldrawingRectF.top + outerCircleWith, fuldrawingRectF.bottom - outerCircleWith, fuldrawingRectF.bottom- outerCircleWith), 360f, -360f, true, paint);
-
-    }
-
-    public void drawIndicator(Canvas canvas, RectF fuldrawingRectF, float radius) {
-
-        Paint paint = new Paint();
-        paint.setColor(Color.YELLOW);
-        paint.setAntiAlias(true);
-
-        canvas.drawCircle(fuldrawingRectF.centerX(), fuldrawingRectF.centerY(), radius, paint);
 
     }
 }

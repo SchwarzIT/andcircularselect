@@ -30,6 +30,10 @@ public class ColorDataView implements DataView {
 
     }
 
+    public int getColor() {
+        return mColor;
+    }
+
     @Override
     public void onClick() {
 

@@ -35,4 +35,12 @@ public class CircleCalculationUtil {
         return new PointF((float) newPointX, (float) newPointY);
     }
 
+    public static float angleBetween2Lines(PointF A1, PointF A2, PointF B1, PointF B2) {
+        float angle1 = (float) Math.atan2(A2.y - A1.y, A1.x - A2.x);
+        float angle2 = (float) Math.atan2(B2.y - B1.y, B1.x - B2.x);
+        float calculatedAngle = (float) Math.toDegrees(angle1 - angle2);
+        if (calculatedAngle < 0) calculatedAngle += 360;
+        return calculatedAngle;
+    }
+
 }

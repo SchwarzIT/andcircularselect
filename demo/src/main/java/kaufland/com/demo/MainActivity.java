@@ -10,6 +10,7 @@ import java.util.List;
 import kaufland.com.andcircularselect.CircularSelect;
 import kaufland.com.andcircularselect.data.ColorDataView;
 import kaufland.com.andcircularselect.data.DataView;
+import kaufland.com.andcircularselect.indicator.DefaultIndicatorView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
         mdata.add(new ColorDataView.Builder().withColor(Color.LTGRAY).build());
 
         mCircularSelect.setData(mdata);
+        mCircularSelect.setIndicatorView(new DefaultIndicatorView.Builder(this).withRoundedCorners().withChangeListener(new DefaultIndicatorView.SelectedViewChangeListener() {
+            @Override
+            public void onChange(DataView view, DefaultIndicatorView defaultIndicatorView) {
+                defaultIndicatorView.setBackgroundColor(((ColorDataView)view).getColor());
+            }
+        }).build());
 
     }
 }
