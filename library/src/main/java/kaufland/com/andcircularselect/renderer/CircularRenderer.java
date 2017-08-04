@@ -1,5 +1,6 @@
 package kaufland.com.andcircularselect.renderer;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,7 +18,7 @@ import kaufland.com.andcircularselect.data.DataView;
 public class CircularRenderer {
 
 
-    public void drawPieces(Canvas canvas, RectF surfaceRect, List<DataView> data) {
+    public void drawPieces(Context context, Canvas canvas, RectF surfaceRect, List<DataView> data) {
 
 
         float startAngle = 0f;
@@ -25,7 +26,7 @@ public class CircularRenderer {
         float sweepAngle = calcRadius(data);
 
         for (DataView view : data) {
-            view.draw(canvas, surfaceRect, startAngle, sweepAngle);
+            view.draw(context, canvas, surfaceRect, startAngle, sweepAngle);
             startAngle += calcRadius(data);
         }
 

@@ -1,5 +1,6 @@
 package kaufland.com.andcircularselect.data;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
@@ -9,7 +10,7 @@ import android.graphics.RectF;
 
 public interface DataView {
 
-    void draw(Canvas canvas, RectF drawingArea, float startAngle, float sweepAngle);
+    void draw(Context context, Canvas canvas, RectF drawingArea, float startAngle, float sweepAngle);
 
     void onClick();
 

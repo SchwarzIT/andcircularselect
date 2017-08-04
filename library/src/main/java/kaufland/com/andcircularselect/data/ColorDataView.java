@@ -1,5 +1,6 @@
 package kaufland.com.andcircularselect.data;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,7 +22,7 @@ public class ColorDataView implements DataView {
 
 
     @Override
-    public void draw(Canvas canvas, RectF drawingArea, float startAngle, float sweepAngle) {
+    public void draw(Context context, Canvas canvas, RectF drawingArea, float startAngle, float sweepAngle) {
 
         Paint paint = new Paint();
         paint.setColor(mColor);
