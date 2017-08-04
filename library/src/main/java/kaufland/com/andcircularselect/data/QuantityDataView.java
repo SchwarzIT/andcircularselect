@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
-import android.view.MotionEvent;
 
 import kaufland.com.andcircularselect.R;
 import kaufland.com.andcircularselect.utils.CircleCalculationUtil;
@@ -25,6 +23,10 @@ public class QuantityDataView implements DataView {
     private int selectorWidth;
     private int smallSelectorColor;
 
+    private int textSize;
+
+    private int smallLineCount;
+
 
     @Override
     public void draw(Context context, Canvas canvas, RectF drawingArea, float startAngle, float sweepAngle) {
@@ -36,27 +38,43 @@ public class QuantityDataView implements DataView {
         paint.setColor(selectorColor);
         paint.setAntiAlias(true);
         paint.setStrokeWidth(context.getResources().getDimension(R.dimen.stroke_width));
+        paint.setTextSize(textSize);
 
         Paint paintSmall = new Paint();
         paint.setColor(smallSelectorColor);
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(context.getResources().getDimension(R.dimen.stroke_width));
+        paint.setStrokeWidth(context.getResources().getDimension(R.dimen.stroke_width_small));
 
 
-        float pieceAngle = sweepAngle / 10;
-        for (int i = 0; i<10; i++){
+        float pieceAngle = sweepAngle / smallLineCount;
+        for (int i = 0; i< smallLineCount; i++){
 
             float angle = startAngle + (pieceAngle * i);
 
             PointF startPoint = CircleCalculationUtil.calcPointOnCircleOutlineByAngle(angle, center, radius);
             PointF endPoint = CircleCalculationUtil.calcPointOnCircleOutlineByAngle(angle, center, radius - selectorWidth);
 
+            PointF numberPoint = CircleCalculationUtil.calcPointOnCircleOutlineByAngle(angle, center, radius - (3 *selectorWidth));
 
-            canvas.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, i == 5 ? paint : paintSmall);
+            if(i == smallLineCount / 2){
+                canvas.drawText(String.valueOf(mQuantity), numberPoint.x, numberPoint.y, paint);
+                canvas.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, paint);
+            }else{
+                canvas.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y, paintSmall);
+            }
+
         }
 
 
 
+    }
+
+    public int getQuantity() {
+        return mQuantity;
+    }
+
+    public void setQuantity(int quantity) {
+        mQuantity = quantity;
     }
 
     @Override
@@ -89,10 +107,21 @@ public class QuantityDataView implements DataView {
             return this;
         }
 
+        public QuantityDataView.Builder withTextSize(int size) {
+            view.textSize = size;
+            return this;
+        }
+
         public QuantityDataView.Builder withSelectorWidth(int width) {
             view.selectorWidth = width;
             return this;
         }
+
+        public QuantityDataView.Builder withSmallLineCount(int count) {
+            view.smallLineCount = count;
+            return this;
+        }
+
 
         public QuantityDataView build() {
             return view;

@@ -115,7 +115,7 @@ public class CircularSelect extends FrameLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        mFuldrawingRectF = new RectF(0, 0, getWidth(), getHeight());
+        mFuldrawingRectF = new RectF(0 + mSelectorCircleSize, 0 + mSelectorCircleSize, getWidth() - mSelectorCircleSize, getHeight() - mSelectorCircleSize);
 
         if (!changed) {
             return;
@@ -135,7 +135,7 @@ public class CircularSelect extends FrameLayout {
 
     private void layoutSelectorView() {
         mSelectorView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        mSelectorView.setCircleSize(mSelectorCircleSize);
+        mSelectorView.setSelectorCircleSize(mSelectorCircleSize);
         mSelectorView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -171,7 +171,7 @@ public class CircularSelect extends FrameLayout {
         }
     }
 
-    public void select(int index){
+    public void select(int index) {
         select(mData.get(index));
     }
 
@@ -193,6 +193,21 @@ public class CircularSelect extends FrameLayout {
 
     public void setData(List<DataView> data) {
         mData = data;
+        invalidate();
+    }
+
+    public void setOuterCircleWith(int outerCircleWith) {
+        mOuterCircleWith = outerCircleWith;
+        invalidate();
+    }
+
+    public void setSelectorCircleSize(int selectorCircleSize) {
+        mSelectorCircleSize = selectorCircleSize;
+        invalidate();
+    }
+
+    public void setIndicatorSize(int indicatorSize) {
+        mIndicatorSize = indicatorSize;
         invalidate();
     }
 }

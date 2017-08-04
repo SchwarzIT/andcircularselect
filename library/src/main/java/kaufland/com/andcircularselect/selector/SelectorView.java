@@ -65,7 +65,7 @@ public class SelectorView extends View {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        mFuldrawingRectF = new RectF(left, top, right, bottom);
+        mFuldrawingRectF = new RectF(left + mCircleSize, top + mCircleSize, right - mCircleSize, bottom- - mCircleSize);
 
 
     }
@@ -79,7 +79,8 @@ public class SelectorView extends View {
         invalidate();
     }
 
-    public void setCircleSize(int selectorCircleSize) {
+    public void setSelectorCircleSize(int selectorCircleSize) {
         mCircleSize = selectorCircleSize;
+        invalidate();
     }
 }

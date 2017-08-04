@@ -17,7 +17,6 @@ import kaufland.com.andcircularselect.data.ColorDataView;
 import kaufland.com.andcircularselect.data.DataView;
 import kaufland.com.andcircularselect.data.QuantityDataView;
 import kaufland.com.andcircularselect.indicator.IndicatorRenderer;
-import kaufland.com.andcircularselect.indicator.IndicatorViewGroup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void update(DataView selected, ViewGroup parent) {
 
-                if(mCardView == null){
+                if (mCardView == null) {
                     LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                     View inflated = inflater.inflate(R.layout.indicator_renderer, parent);
                     mCardView = (CardView) inflated.findViewById(R.id.indicator_card);
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mTextView.setText(mdata.indexOf(selected) + "");
                 mCardView.setRadius(getResources().getDimension(R.dimen.rounded));
-                mCardView.setCardBackgroundColor(((ColorDataView)selected).getColor());
+                mCardView.setCardBackgroundColor(((ColorDataView) selected).getColor());
 
             }
         });
@@ -76,20 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
         final List<DataView> mdata = new ArrayList<>();
 
-        int width = (int) getResources().getDimension(R.dimen.selector_width);
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(1).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(2).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(3).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(4).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(5).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(6).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(7).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(8).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(9).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(10).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(11).withSelectorWidth(width).build());
-        mdata.add(new QuantityDataView.Builder().withSelectorColor(Color.LTGRAY).withQuantity(12).withSelectorWidth(width).build());
+        int count = 12;
 
+        int width = (int) getResources().getDimension(R.dimen.selector_width);
+        for (int i = 1; i < count; i++) {
+            mdata.add(new QuantityDataView.Builder()
+                    .withSelectorColor(Color.LTGRAY)
+                    .withQuantity(i)
+                    .withSelectorWidth(width)
+                    .withSmallLineCount(6)
+                    .withTextSize((int) getResources().getDimension(R.dimen.textSize))
+                    .build());
+        }
 
         mCircularSelectQuantity.setData(mdata);
         mCircularSelectQuantity.setIndicatorRenderer(new IndicatorRenderer() {
@@ -100,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void update(DataView selected, ViewGroup parent) {
 
-                if(mCardView == null){
+                if (mCardView == null) {
                     LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                     View inflated = inflater.inflate(R.layout.indicator_renderer, parent);
                     mCardView = (CardView) inflated.findViewById(R.id.indicator_card);
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 mCardView.setCardBackgroundColor(getResources().getColor(R.color.cardview_dark_background));
-                mTextView.setText(mdata.indexOf(selected) + "");
+                mTextView.setText(((QuantityDataView) selected).getQuantity() + "");
 
             }
         });
