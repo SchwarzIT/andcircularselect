@@ -1,6 +1,7 @@
 package kaufland.com.andcircularselect.indicator;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import kaufland.com.andcircularselect.data.DataView;
 
@@ -8,10 +9,8 @@ import kaufland.com.andcircularselect.data.DataView;
  * Created by sbra0902 on 03.08.17.
  */
 
-public interface IndicatorView {
+public interface IndicatorRenderer {
 
-    View getView();
-
-    void update(DataView selected);
+    void update(DataView selected, ViewGroup parent);
 
 }

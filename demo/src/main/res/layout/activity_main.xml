@@ -10,6 +10,9 @@
     <kaufland.com.andcircularselect.CircularSelect
         android:layout_width="300dp"
         android:id="@+id/select"
+        app:outer_circle_width="90dp"
+        app:indicator_size="40dp"
+        app:selector_circle_size="20dp"
         android:layout_height="300dp"/>
 
 </FrameLayout>

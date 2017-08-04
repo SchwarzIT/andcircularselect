@@ -3,6 +3,11 @@ package kaufland.com.demo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +15,8 @@ import java.util.List;
 import kaufland.com.andcircularselect.CircularSelect;
 import kaufland.com.andcircularselect.data.ColorDataView;
 import kaufland.com.andcircularselect.data.DataView;
-import kaufland.com.andcircularselect.indicator.DefaultIndicatorView;
+import kaufland.com.andcircularselect.indicator.IndicatorRenderer;
+import kaufland.com.andcircularselect.indicator.IndicatorViewGroup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTestData() {
 
-        List<DataView> mdata = new ArrayList<>();
+        final List<DataView> mdata = new ArrayList<>();
 
         mdata.add(new ColorDataView.Builder().withColor(Color.BLACK).build());
         mdata.add(new ColorDataView.Builder().withColor(Color.GREEN).build());
@@ -37,12 +43,27 @@ public class MainActivity extends AppCompatActivity {
         mdata.add(new ColorDataView.Builder().withColor(Color.LTGRAY).build());
 
         mCircularSelect.setData(mdata);
-        mCircularSelect.setIndicatorView(new DefaultIndicatorView.Builder(this).withRoundedCorners().withChangeListener(new DefaultIndicatorView.SelectedViewChangeListener() {
+        mCircularSelect.setIndicatorRenderer(new IndicatorRenderer() {
+
+            private CardView mCardView;
+            private TextView mTextView;
+
             @Override
-            public void onChange(DataView view, DefaultIndicatorView defaultIndicatorView) {
-                defaultIndicatorView.setBackgroundColor(((ColorDataView)view).getColor());
+            public void update(DataView selected, ViewGroup parent) {
+
+                if(mCardView == null){
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View inflated = inflater.inflate(R.layout.indicator_renderer, parent);
+                    mCardView = (CardView) inflated.findViewById(R.id.indicator_card);
+                    mTextView = (TextView) inflated.findViewById(R.id.indicator_text);
+                }
+
+                mTextView.setText(mdata.indexOf(selected) + "");
+                mCardView.setRadius(getResources().getDimension(R.dimen.rounded));
+                mCardView.setCardBackgroundColor(((ColorDataView)selected).getColor());
+
             }
-        }).build());
+        });
 
     }
 }

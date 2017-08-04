@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="default_outer_circle">50dp</dimen>
-    <dimen name="default_indicator_radius">30dp</dimen>
-    <dimen name="default_indicator_size">20dp</dimen>
+    <dimen name="default_outer_circle">70dp</dimen>
+    <dimen name="default_indicator_size">30dp</dimen>
+    <dimen name="default_selector_size">20dp</dimen>
 </resources>

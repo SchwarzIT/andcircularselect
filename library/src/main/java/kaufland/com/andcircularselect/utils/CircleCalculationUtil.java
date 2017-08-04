@@ -1,6 +1,7 @@
 package kaufland.com.andcircularselect.utils;
 
 import android.graphics.PointF;
+import android.util.Log;
 
 /**
  * Created by sbra0902 on 03.08.17.
@@ -21,7 +22,6 @@ public class CircleCalculationUtil {
 
         float alpha = (float) Math.acos(arg);
 
-
         double newPointX = center.x + (Math.cos(alpha) * radius);
 
         double newPointY;
@@ -41,6 +41,12 @@ public class CircleCalculationUtil {
         float calculatedAngle = (float) Math.toDegrees(angle1 - angle2);
         if (calculatedAngle < 0) calculatedAngle += 360;
         return calculatedAngle;
+    }
+
+    public static PointF calcPointOnCircleOutlineByAngle(float angle, PointF center, float radius){
+        float x = (float)(radius * Math.cos(angle * Math.PI / 180F)) + center.x;
+        float y = (float)(radius * Math.sin(angle * Math.PI / 180F)) + center.y;
+        return new PointF(x, y);
     }
 
 }

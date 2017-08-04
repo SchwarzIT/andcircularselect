@@ -9,9 +9,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 import kaufland.com.andcircularselect.R;
@@ -25,6 +23,7 @@ public class SelectorView extends View {
 
     private PointF mIndicatorPoint;
     private RectF mFuldrawingRectF;
+    private int mCircleSize;
 
     public SelectorView(Context context) {
         super(context);
@@ -43,10 +42,6 @@ public class SelectorView extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    private void init() {
-
-    }
-
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
@@ -56,12 +51,12 @@ public class SelectorView extends View {
             paint.setAntiAlias(true);
             paint.setColor(Color.DKGRAY);
             paint.setAlpha(80);
-            canvas.drawCircle(mIndicatorPoint.x, mIndicatorPoint.y, getResources().getDimension(R.dimen.default_indicator_size), paint);
+            canvas.drawCircle(mIndicatorPoint.x, mIndicatorPoint.y, mCircleSize, paint);
 
 
             paint.setColor(Color.LTGRAY);
             paint.setAlpha(100);
-            canvas.drawCircle(mIndicatorPoint.x, mIndicatorPoint.y, getResources().getDimension(R.dimen.default_indicator_size) / 2, paint);
+            canvas.drawCircle(mIndicatorPoint.x, mIndicatorPoint.y, getResources().getDimension(R.dimen.default_selector_size) / 2, paint);
 
             canvas.drawLine(mIndicatorPoint.x, mIndicatorPoint.y, mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY(), paint);
         }
@@ -82,5 +77,9 @@ public class SelectorView extends View {
     public void setIndicatorPoint(PointF indicatorPoint) {
         mIndicatorPoint = indicatorPoint;
         invalidate();
+    }
+
+    public void setCircleSize(int selectorCircleSize) {
+        mCircleSize = selectorCircleSize;
     }
 }
