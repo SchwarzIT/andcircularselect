@@ -10,6 +10,10 @@ library for customisable circular picker
 
 * highly customisable. Every part of the control can be configured
 
+## Screenshot
+
+![](https://preview.ibb.co/ddjqwa/Screenshot_1502126051.png)
+
 
 ## Implementation
 
