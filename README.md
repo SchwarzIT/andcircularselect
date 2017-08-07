@@ -1,3 +1,6 @@
+[![](https://jitpack.io/v/Kaufland/andcircularselect.svg)](https://jitpack.io/#Kaufland/andcircularselect)
+
+
 # andcircularselect
 library for customisable circular picker
 
