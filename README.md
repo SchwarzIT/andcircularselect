@@ -1,3 +1,6 @@
+[![](https://jitpack.io/v/Kaufland/andcircularselect.svg)](https://jitpack.io/#Kaufland/andcircularselect)
+
+
 # andcircularselect
 library for customisable circular picker
 
@@ -6,6 +9,10 @@ library for customisable circular picker
 * Easy to use - define in xml configure with Builder
 
 * highly customisable. Every part of the control can be configured
+
+## Screenshot
+
+![](https://preview.ibb.co/ddjqwa/Screenshot_1502126051.png)
 
 
 ## Implementation
