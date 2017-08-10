@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ import kaufland.com.andcircularselect.data.ColorDataView;
 import kaufland.com.andcircularselect.data.DataView;
 import kaufland.com.andcircularselect.data.QuantityDataView;
 import kaufland.com.andcircularselect.indicator.IndicatorRenderer;
+import kaufland.com.andcircularselect.selector.CircleLapsCountInterceptor;
+import kaufland.com.andcircularselect.selector.SelectorTouchInterceptor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mCircularSelectQuantity.setData(mdata);
+        mCircularSelectQuantity.setSelectorTouchInterceptor(new CircleLapsCountInterceptor(new CircleLapsCountInterceptor.LapsChangedListener() {
+            @Override
+            public void lapsChanged(int laps) {
+                Log.e("test", laps + "");
+            }
+        }));
         mCircularSelectQuantity.setIndicatorRenderer(new IndicatorRenderer() {
 
             private CardView mCardView;

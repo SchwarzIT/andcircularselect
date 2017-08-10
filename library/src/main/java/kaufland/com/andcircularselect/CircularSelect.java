@@ -24,6 +24,7 @@ import kaufland.com.andcircularselect.data.DataView;
 import kaufland.com.andcircularselect.indicator.IndicatorRenderer;
 import kaufland.com.andcircularselect.indicator.IndicatorViewGroup;
 import kaufland.com.andcircularselect.renderer.CircularRenderer;
+import kaufland.com.andcircularselect.selector.SelectorTouchInterceptor;
 import kaufland.com.andcircularselect.selector.SelectorView;
 import kaufland.com.andcircularselect.utils.CircleCalculationUtil;
 
@@ -48,6 +49,8 @@ public class CircularSelect extends FrameLayout {
     private int mSelectorCircleSize;
 
     private int mIndicatorSize;
+
+    private SelectorTouchInterceptor mSelectorTouchInterceptor;
 
     public CircularSelect(@NonNull Context context) {
         super(context);
@@ -137,21 +140,28 @@ public class CircularSelect extends FrameLayout {
         mSelectorView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mSelectorView.setSelectorCircleSize(mSelectorCircleSize);
         mSelectorView.setOnTouchListener(new OnTouchListener() {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-
                 PointF clicked = new PointF(event.getX(), event.getY());
+                PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
+                if (mSelectorTouchInterceptor != null){
+                    float angle = CircleCalculationUtil.angleBetween2Lines(new PointF(mFuldrawingRectF.top, mFuldrawingRectF.centerY()), center, clicked, center);
+                    if(mSelectorTouchInterceptor.onTouch(v, event, angle)){
+                       return true;
+                    }
+                }
                 boolean upEvent = event.getAction() == MotionEvent.ACTION_UP;
-                select(clicked, upEvent);
+                select(clicked, center, upEvent);
 
                 return true;
             }
         });
     }
 
-    private void select(PointF clicked, boolean upEvent) {
-        PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
+    private void select(PointF clicked, PointF center, boolean upEvent) {
+
         float radius = mFuldrawingRectF.height() / 2;
 
         PointF outerPoint = CircleCalculationUtil.moveTouchedPointToCircleOutline(clicked, center, radius);
@@ -180,7 +190,7 @@ public class CircularSelect extends FrameLayout {
         PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
         float radius = mFuldrawingRectF.height() / 2;
 
-        select(CircleCalculationUtil.calcPointOnCircleOutlineByAngle(mRenderer.calcRadius(mData) * mData.indexOf(value), center, radius), true);
+        select(CircleCalculationUtil.calcPointOnCircleOutlineByAngle(mRenderer.calcRadius(mData) * mData.indexOf(value), center, radius), center, true);
     }
 
     public void setIndicatorRenderer(IndicatorRenderer renderer) {
@@ -209,5 +219,9 @@ public class CircularSelect extends FrameLayout {
     public void setIndicatorSize(int indicatorSize) {
         mIndicatorSize = indicatorSize;
         invalidate();
+    }
+
+    public void setSelectorTouchInterceptor(SelectorTouchInterceptor selectorTouchInterceptor) {
+        mSelectorTouchInterceptor = selectorTouchInterceptor;
     }
 }
