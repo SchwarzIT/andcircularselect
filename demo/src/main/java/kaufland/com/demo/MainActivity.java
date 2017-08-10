@@ -28,12 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
     private CircularSelect mCircularSelectQuantity;
 
+    private TextView mLapsCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mCircularSelect = (CircularSelect) findViewById(R.id.select);
         mCircularSelectQuantity = (CircularSelect) findViewById(R.id.selectQuantity);
+        mLapsCount = (TextView) findViewById(R.id.labs_count);
 
         setupTestData();
         setupTestDataQuantity();
@@ -106,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
         mCircularSelectQuantity.setSelectorTouchInterceptor(new CircleLapsCountInterceptor(new CircleLapsCountInterceptor.LapsChangedListener() {
             @Override
             public void lapsChanged(int laps) {
-                Log.e("test", laps + "");
+                mLapsCount.setText("Laps: " + laps);
             }
-        }));
+        }, 0, 0, 4));
         mCircularSelectQuantity.setIndicatorRenderer(new IndicatorRenderer() {
 
             private CardView mCardView;

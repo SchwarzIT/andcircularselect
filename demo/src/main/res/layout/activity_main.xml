@@ -18,6 +18,12 @@
         android:layout_marginBottom="20dp"
         android:layout_height="300dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/labs_count"
+        android:textSize="22sp"
+        android:layout_height="wrap_content"/>
+
 
     <kaufland.com.andcircularselect.CircularSelect
         android:id="@+id/selectQuantity"

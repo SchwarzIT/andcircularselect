@@ -26,11 +26,22 @@ public class CircleLapsCountInterceptor implements SelectorTouchInterceptor {
 
     private int mLaps;
 
+    private Integer mLowest;
+
+    private Integer mHighest;
+
     public CircleLapsCountInterceptor(LapsChangedListener lapsChangedListener) {
         mLapsChangedListener = lapsChangedListener;
     }
 
-    public interface LapsChangedListener{
+    public CircleLapsCountInterceptor(LapsChangedListener lapsChangedListener, int startLaps, Integer lowest, Integer highest) {
+        mLapsChangedListener = lapsChangedListener;
+        mLaps = startLaps;
+        mLowest = lowest;
+        mHighest = highest;
+    }
+
+    public interface LapsChangedListener {
         void lapsChanged(int laps);
     }
 
@@ -45,15 +56,18 @@ public class CircleLapsCountInterceptor implements SelectorTouchInterceptor {
         if (clickDuration > MAX_CLICK_DURATION && mOldTouchAngle != null && mLapsChangedListener != null) {
             //click event has occurred
 
-            if(mOldTouchAngle > 320 && newTouchAngle < 50){
-
-                mLaps++;
-                mLapsChangedListener.lapsChanged(mLaps);
+            if (mOldTouchAngle > 320 && newTouchAngle < 50) {
+                if (mHighest == null || mLaps < mHighest) {
+                    mLaps++;
+                    mLapsChangedListener.lapsChanged(mLaps);
+                }
             }
 
-            if(mOldTouchAngle < 50 && newTouchAngle > 320){
-                mLaps--;
-                mLapsChangedListener.lapsChanged(mLaps);
+            if (mOldTouchAngle < 50 && newTouchAngle > 320) {
+                if (mLowest == null || mLaps > mLowest) {
+                    mLaps--;
+                    mLapsChangedListener.lapsChanged(mLaps);
+                }
             }
 
         }
