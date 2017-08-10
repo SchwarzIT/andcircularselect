@@ -13,7 +13,7 @@ library for customisable circular picker
 
 ## Screenshot
 
-![](http://fs5.directupload.net/images/170810/j3laodfu.gif)
+![](https://pictr.com/images/2017/08/11/g4sox.gif)
 
 
 ## Implementation
