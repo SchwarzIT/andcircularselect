@@ -82,6 +82,16 @@ public class MainActivity extends AppCompatActivity {
         int count = 12;
 
         int width = (int) getResources().getDimension(R.dimen.selector_width);
+
+        mdata.add(new QuantityDataView.Builder()
+                .withSelectorColor(Color.LTGRAY)
+                .withQuantity(12)
+                .withSelectorWidth(width)
+                .withSmallLineCount(6)
+                .withTextSize((int) getResources().getDimension(R.dimen.textSize))
+                .build());
+
+
         for (int i = 1; i < count; i++) {
             mdata.add(new QuantityDataView.Builder()
                     .withSelectorColor(Color.LTGRAY)

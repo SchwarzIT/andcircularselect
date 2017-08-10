@@ -2,13 +2,14 @@ package kaufland.com.andcircularselect.renderer;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-import java.security.PrivilegedAction;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import kaufland.com.andcircularselect.AngleRange;
 import kaufland.com.andcircularselect.data.DataView;
 
 /**
@@ -17,25 +18,48 @@ import kaufland.com.andcircularselect.data.DataView;
 
 public class CircularRenderer {
 
+    Map<DataView, AngleRange> mDataViewAngleRange = new HashMap<>();
+
 
     public void drawPieces(Context context, Canvas canvas, RectF surfaceRect, List<DataView> data) {
 
 
-        float startAngle = 0f;
+        mDataViewAngleRange.clear();
+        float startAngle = 270f - calcPieceAngle(data) / 2;
 
-        float sweepAngle = calcRadius(data);
+        float sweepAngle = calcPieceAngle(data);
 
         for (DataView view : data) {
+
+            mDataViewAngleRange.put(view, new AngleRange(startAngle, startAngle + sweepAngle));
             view.draw(context, canvas, surfaceRect, startAngle, sweepAngle);
-            startAngle += calcRadius(data);
+
+            startAngle = (startAngle + sweepAngle) % 360;
         }
 
     }
 
-    public float calcRadius(List<DataView> data) {
+    public float calcPieceAngle(List<DataView> data) {
 
         return 360f / data.size();
 
+    }
+
+    public DataView getDataViewForAngle(float angle){
+
+        for (Map.Entry<DataView, AngleRange> entry : mDataViewAngleRange.entrySet()) {
+
+            if(entry.getValue().matches(angle)){
+                return entry.getKey();
+            }
+        }
+
+        return null;
+
+    }
+
+    public AngleRange getRangeForDataView(DataView view){
+       return mDataViewAngleRange.get(view);
     }
 
     public void drawControl(Canvas canvas, RectF fuldrawingRectF, float outerCircleWith, int backgroundColor) {
@@ -46,5 +70,9 @@ public class CircularRenderer {
 
         canvas.drawArc(new RectF(fuldrawingRectF.left + outerCircleWith, fuldrawingRectF.top + outerCircleWith, fuldrawingRectF.bottom - outerCircleWith, fuldrawingRectF.bottom- outerCircleWith), 360f, -360f, true, paint);
 
+    }
+
+    public Map<DataView, AngleRange> getAngleRanges() {
+        return mDataViewAngleRange;
     }
 }

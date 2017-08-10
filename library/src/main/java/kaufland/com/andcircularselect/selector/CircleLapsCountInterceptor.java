@@ -6,6 +6,10 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+
+import kaufland.com.andcircularselect.AngleRange;
+import kaufland.com.andcircularselect.data.DataView;
 
 /**
  * Created by sbra0902 on 09.08.17.
@@ -40,13 +44,14 @@ public class CircleLapsCountInterceptor implements SelectorTouchInterceptor {
         long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
         if (clickDuration > MAX_CLICK_DURATION && mOldTouchAngle != null && mLapsChangedListener != null) {
             //click event has occurred
-            if(mOldTouchAngle > 220 && newTouchAngle < 50){
+
+            if(mOldTouchAngle > 320 && newTouchAngle < 50){
 
                 mLaps++;
                 mLapsChangedListener.lapsChanged(mLaps);
             }
 
-            if(mOldTouchAngle < 50 && newTouchAngle > 220){
+            if(mOldTouchAngle < 50 && newTouchAngle > 320){
                 mLaps--;
                 mLapsChangedListener.lapsChanged(mLaps);
             }

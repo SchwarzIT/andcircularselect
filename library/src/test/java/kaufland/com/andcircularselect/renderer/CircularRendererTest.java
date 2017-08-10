@@ -20,9 +20,7 @@ import java.util.List;
 import kaufland.com.andcircularselect.BuildConfig;
 import kaufland.com.andcircularselect.data.DataView;
 
-import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.floatThat;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -56,8 +54,8 @@ public class CircularRendererTest {
 
         new CircularRenderer().drawPieces(contextMock, canvasMock, rect, mocks);
 
-        verify(mock1).draw(contextMock, canvasMock, rect, 0, 180);
-        verify(mock2).draw(contextMock, canvasMock, rect, 180, 180);
+        verify(mock1).draw(contextMock, canvasMock, rect, 180, 180);
+        verify(mock2).draw(contextMock, canvasMock, rect, 0, 180);
 
     }
 
@@ -68,7 +66,7 @@ public class CircularRendererTest {
         mocks.add(mock1);
         mocks.add(mock2);
 
-        Assert.assertEquals(180, new CircularRenderer().calcRadius(mocks), 0);
+        Assert.assertEquals(180, new CircularRenderer().calcPieceAngle(mocks), 0);
 
     }
 

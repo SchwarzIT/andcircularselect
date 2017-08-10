@@ -10,15 +10,15 @@ import android.util.Log;
 public class CircleCalculationUtil {
 
 
-    public static PointF moveTouchedPointToCircleOutline(PointF clicked, PointF center, float radius){
+    public static PointF moveTouchedPointToCircleOutline(PointF clicked, PointF center, float radius) {
         PointF x = new PointF(clicked.x - center.x, clicked.y - center.y);
         PointF z = new PointF(1, 0);
 
         float upper = (x.x * z.x) + (x.y * z.y);
-        float down1 = (float) Math.sqrt(x.x*x.x + x.y*x.y);
-        float down2 = (float) Math.sqrt(z.x*z.x + z.y*z.y);
+        float down1 = (float) Math.sqrt(x.x * x.x + x.y * x.y);
+        float down2 = (float) Math.sqrt(z.x * z.x + z.y * z.y);
 
-        float arg = upper/(down1*down2);
+        float arg = upper / (down1 * down2);
 
         float alpha = (float) Math.acos(arg);
 
@@ -40,12 +40,13 @@ public class CircleCalculationUtil {
         float angle2 = (float) Math.atan2(B2.y - B1.y, B1.x - B2.x);
         float calculatedAngle = (float) Math.toDegrees(angle1 - angle2);
         if (calculatedAngle < 0) calculatedAngle += 360;
+
         return calculatedAngle;
     }
 
-    public static PointF calcPointOnCircleOutlineByAngle(float angle, PointF center, float radius){
-        float x = (float)(radius * Math.cos(angle * Math.PI / 180F)) + center.x;
-        float y = (float)(radius * Math.sin(angle * Math.PI / 180F)) + center.y;
+    public static PointF calcPointOnCircleOutlineByAngle(float angle, PointF center, float radius) {
+        float x = (float) (radius * Math.cos(angle * Math.PI / 180F)) + center.x;
+        float y = (float) (radius * Math.sin(angle * Math.PI / 180F)) + center.y;
         return new PointF(x, y);
     }
 
