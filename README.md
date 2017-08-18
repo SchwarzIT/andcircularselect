@@ -13,7 +13,7 @@ library for customisable circular picker
 
 ## Screenshot
 
-![](https://preview.ibb.co/ddjqwa/Screenshot_1502126051.png)
+![](https://pictr.com/images/2017/08/11/g4sox.gif)
 
 
 ## Implementation
@@ -38,7 +38,7 @@ library for customisable circular picker
 2. Add gradle dependency
 
     ```
-    compile 'com.github.Kaufland:andcircularselect:0.5.0'
+    compile 'com.github.Kaufland:andcircularselect:0.6.0'
     ```
 
 3. Configure library 
@@ -90,4 +90,14 @@ final List<DataView> mdata = new ArrayList<>();
 
             }
         });
+   ```
+  * Optional: Add TouchInterceptor (CircleLapsCountInterceptor counts moved laps)
+  
+   ``` java
+    mCircularSelectQuantity.setSelectorTouchInterceptor(new CircleLapsCountInterceptor(new 	       CircleLapsCountInterceptor.LapsChangedListener() {
+            @Override
+            public void lapsChanged(int laps) {
+                mLapsCount.setText("Laps: " + laps);
+            }
+        }, 0, 0, 4));
    ```
