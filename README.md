@@ -38,7 +38,7 @@ library for customisable circular picker
 2. Add gradle dependency
 
     ```
-    compile 'com.github.Kaufland:andcircularselect:0.6.0'
+    compile 'com.github.Kaufland:andcircularselect:0.6.1'
     ```
 
 3. Configure library 
