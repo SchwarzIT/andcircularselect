@@ -143,24 +143,23 @@ public class CircularSelect extends FrameLayout {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-                PointF clicked = new PointF(event.getX(), event.getY());
-                PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
-                if (mSelectorTouchInterceptor != null){
-                    float angle = CircleCalculationUtil.angleBetween2Lines(new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.left), center, clicked, center);
-                    if(mSelectorTouchInterceptor.onTouch(v, event, angle)){
-                       return true;
-                    }
-                }
-                boolean upEvent = event.getAction() == MotionEvent.ACTION_UP;
-                select(clicked, center, upEvent);
-
+                select(v, event);
                 return true;
             }
         });
     }
 
-    private void select(PointF clicked, PointF center, boolean upEvent) {
+    private void select(View v, MotionEvent event) {
+
+        PointF clicked = new PointF(event.getX(), event.getY());
+        PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
+        if (mSelectorTouchInterceptor != null) {
+            float angle = CircleCalculationUtil.angleBetween2Lines(new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.left), center, clicked, center);
+            if (mSelectorTouchInterceptor.onTouch(v, event, angle)) {
+                return;
+            }
+        }
+        boolean upEvent = event.getAction() == MotionEvent.ACTION_UP;
 
         float radius = mFuldrawingRectF.height() / 2;
 
@@ -189,7 +188,15 @@ public class CircularSelect extends FrameLayout {
         PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
         float radius = mFuldrawingRectF.height() / 2;
 
-        select(CircleCalculationUtil.calcPointOnCircleOutlineByAngle(mRenderer.calcPieceAngle(mData) * mData.indexOf(value), center, radius), center, true);
+        float angle = 270f - (mRenderer.calcPieceAngle(mData) * mData.indexOf(value));
+        if (angle < 0) {
+            angle = 270f + angle - (mRenderer.calcPieceAngle(mData) / 2);
+        }
+
+        PointF point = CircleCalculationUtil.calcPointOnCircleOutlineByAngle(angle, center, radius);
+
+
+        select(mSelectorView, MotionEvent.obtain(0,0, MotionEvent.ACTION_UP, point.x, point.y, 0));
     }
 
     public void setIndicatorRenderer(IndicatorRenderer renderer) {

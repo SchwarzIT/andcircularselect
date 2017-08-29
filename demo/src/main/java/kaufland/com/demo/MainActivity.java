@@ -76,6 +76,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mCircularSelect.postOnAnimationDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCircularSelect.select(5);
+            }
+        }, 50);
+
     }
 
     private void setupTestDataQuantity() {
@@ -133,12 +140,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mCircularSelectQuantity.postOnAnimationDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCircularSelectQuantity.select(0);
+            }
+        }, 50);
 
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mCircularSelectQuantity.select(0);
     }
 }
