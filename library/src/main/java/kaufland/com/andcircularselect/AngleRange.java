@@ -13,7 +13,6 @@ public class AngleRange {
     private Float mUpperAngle;
 
     public AngleRange(Float lowerAngle, Float upperAngle) {
-        Log.e("test", lowerAngle + " " + upperAngle);
         mLowerAngle = lowerAngle;
         mUpperAngle = upperAngle;
     }

@@ -188,10 +188,7 @@ public class CircularSelect extends FrameLayout {
         PointF center = new PointF(mFuldrawingRectF.centerX(), mFuldrawingRectF.centerY());
         float radius = mFuldrawingRectF.height() / 2;
 
-        float angle = 270f - (mRenderer.calcPieceAngle(mData) * mData.indexOf(value));
-        if (angle < 0) {
-            angle = 270f + angle - (mRenderer.calcPieceAngle(mData) / 2);
-        }
+        float angle = mRenderer.getRangeForDataView(value).getCenter();
 
         PointF point = CircleCalculationUtil.calcPointOnCircleOutlineByAngle(angle, center, radius);
 
