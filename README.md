@@ -38,7 +38,7 @@ library for customisable circular picker
 2. Add gradle dependency
 
     ```
-    compile 'com.github.Kaufland:andcircularselect:0.6.1'
+    compile 'com.github.Kaufland:andcircularselect:0.6.2'
     ```
 
 3. Configure library 
@@ -90,6 +90,13 @@ final List<DataView> mdata = new ArrayList<>();
 
             }
         });
+	
+	 mCircularSelect.postOnAnimationDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCircularSelect.select(5);
+            }
+        }, 50);
    ```
   * Optional: Add TouchInterceptor (CircleLapsCountInterceptor counts moved laps)
   
