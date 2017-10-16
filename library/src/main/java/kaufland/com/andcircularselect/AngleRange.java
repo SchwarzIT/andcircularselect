@@ -12,16 +12,27 @@ public class AngleRange {
 
     private Float mUpperAngle;
 
+    private boolean isUpperBreak;
+
     public AngleRange(Float lowerAngle, Float upperAngle) {
         mLowerAngle = lowerAngle;
         mUpperAngle = upperAngle;
+        if (upperAngle > 360) {
+            isUpperBreak = true;
+        }
     }
 
-    public boolean matches(Float angle){
+    public boolean matches(Float angle) {
+
+        if (isUpperBreak && angle + 360 <= mUpperAngle) {
+            angle += 360;
+        }
+
         return angle >= mLowerAngle && angle <= mUpperAngle;
     }
 
-    public Float getCenter(){
+    public Float getCenter() {
         return (mLowerAngle + mUpperAngle) / 2;
     }
+    
 }
