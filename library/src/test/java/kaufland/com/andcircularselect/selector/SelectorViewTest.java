@@ -85,7 +85,7 @@ public class SelectorViewTest{
 
         Paint paint = captor.getValue();
         Assert.assertEquals(Color.LTGRAY, paint.getColor());
-        verify(canvas).drawLine(eq(0f), eq(0f), eq(250f), eq(270f), captor.capture());
+        verify(canvas).drawLine(eq(0f), eq(0f), eq(250f), eq(250f), captor.capture());
 
     }
 }
