@@ -1,6 +1,6 @@
-[![](https://jitpack.io/v/Kaufland/andcircularselect.svg)](https://jitpack.io/#Kaufland/andcircularselect)
-[![Build Status](https://travis-ci.org/Kaufland/andcircularselect.svg?branch=master)](https://travis-ci.org/Kaufland/andcircularselect)
-[![codecov](https://codecov.io/gh/Kaufland/andcircularselect/branch/master/graph/badge.svg)](https://codecov.io/gh/Kaufland/andcircularselect)
+[![](https://jitpack.io/v/SchwarzIT/andcircularselect.svg)](https://jitpack.io/#SchwarzIT/andcircularselect)
+[![Build Status](https://travis-ci.org/SchwarzIT/andcircularselect.svg?branch=master)](https://travis-ci.org/SchwarzIT/andcircularselect)
+[![codecov](https://codecov.io/gh/SchwarzIT/andcircularselect/branch/master/graph/badge.svg)](https://codecov.io/gh/SchwarzIT/andcircularselect)
 
 # andcircularselect
 library for customisable circular picker
